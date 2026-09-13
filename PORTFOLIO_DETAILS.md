@@ -229,7 +229,7 @@ Infinite horizontal smooth ticker featuring SimpleIcons CDN assets:
 - **Header:**
   - Label: `CREDENTIALS`
   - Heading: `Certifications`
-  - Controls: Desktop horizontal scroll navigation buttons (Left / Right).
+  - Controls: Draggable horizontal range slider, synchronized with the certification rail.
 - **Display:** Horizontal smooth-snap scrollable card deck with glowing background accents.
 
 ---

@@ -9,7 +9,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 export function Hero() {
   const root = useRef<HTMLElement>(null)
-  const [lead, subject, outcome] = portfolio.personal.heroHeadline
+  const [firstName, ...surname] = portfolio.personal.name.split(' ')
+  const lastName = surname.join(' ')
 
   useGSAP(() => {
     const scope = root.current
@@ -101,11 +102,10 @@ export function Hero() {
               <TextType text="FULL-STACK DEVELOPER · AI-POWERED PRODUCTS — INDIA" initialDelay={2050} />
             </p>
             <h1 className="home-title" id="hero-title">
-              <span className="home-title__line"><span>{lead}</span></span>
-              <span className="home-title__line"><span>{subject}</span></span>
-              <span className="home-title__line home-title__line--built"><span>{outcome}</span></span>
+              <span className="home-title__line"><span>{firstName}</span></span>
+              <span className="home-title__line home-title__line--built"><span>{lastName}</span></span>
             </h1>
-            <p className="home-hero__summary">I’m Arya a developer who takes products from first idea to final deployment. I build polished interfaces, dependable systems, and useful AI features that solve real problems.</p>
+            <p className="home-hero__summary">I’m a developer who takes products from first idea to final deployment. I build polished interfaces, dependable systems, and useful AI features that solve real problems.</p>
             <div className="home-hero__actions" id="hero-actions">
               <a className="home-cta home-cta--primary" href="#projects"><span>Explore my work</span><i>↘</i></a>
               <a className="home-cta" href={portfolio.contact.inquiryEmail}><span>Let’s talk</span><i>↗</i></a>
