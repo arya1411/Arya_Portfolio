@@ -9,7 +9,7 @@ export const portfolio = {
     bio: 'I’m Arya Patel, a Full-Stack Developer currently pursuing B.Tech at Manipal Institute of Technology. I enjoy turning early ideas into reliable products—designing the interface, engineering the system, and adding AI where it creates genuine value.',
     footerBio: 'Full-Stack Developer building reliable, AI-powered digital products.',
     status: ['Open To Work', 'Remote + Onsite', 'Open To Internships'],
-    resumeUrl: 'https://drive.google.com/uc?export=download&id=1ga1pX3lHRxvJvKyr_BWc54S3ljTUoTf2',
+    resumeUrl: 'https://drive.google.com/file/d/1IIZuBtjgtY8MvYzBbFQZXEC2MR2EMZBm/view?usp=sharing',
   },
   contact: {
     email: 'patelarya424@gmail.com',
