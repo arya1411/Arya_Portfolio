@@ -3,7 +3,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { portfolio } from '../data/portfolio'
-import { TextType } from './TextType'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -11,27 +10,31 @@ export function Hero() {
   const root = useRef<HTMLElement>(null)
   const [firstName, ...surname] = portfolio.personal.name.split(' ')
   const lastName = surname.join(' ')
+  const renderName = (name: string) => name.split('').map((letter, index) => (
+    <span className="home-title__glyph" aria-hidden="true" key={`${letter}-${index}`}>{letter}</span>
+  ))
 
   useGSAP(() => {
     const scope = root.current
     if (!scope) return
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const finePointer = window.matchMedia('(pointer: fine)').matches
 
     if (!reduceMotion) {
       gsap.timeline({ defaults: { ease: 'power3.out', force3D: true } })
-        .to('.intro__bar-fill', { scaleX: 1, duration: .85, ease: 'power2.inOut' })
-        .to('.intro__count', { textContent: 100, duration: .85, snap: { textContent: 1 } }, '<')
-        .to('.intro__panel--top', { yPercent: -100, duration: .9, ease: 'power4.inOut' }, '+=.08')
-        .to('.intro__panel--bottom', { yPercent: 100, duration: .9, ease: 'power4.inOut' }, '<')
+        .to('.intro__bar-fill', { scaleX: 1, duration: .72, ease: 'power2.inOut' })
+        .to('.intro__count', { textContent: 100, duration: .72, snap: { textContent: 1 } }, '<')
+        .to('.intro__panel--top', { yPercent: -100, duration: .78, ease: 'power4.inOut' }, '+=.08')
+        .to('.intro__panel--bottom', { yPercent: 100, duration: .78, ease: 'power4.inOut' }, '<')
         .set('.intro', { display: 'none' })
-        .from('.home-nav', { y: -18, opacity: 0, duration: .7 }, '-=.28')
-        .from('.home-hero__eyebrow', { y: 14, opacity: 0, duration: .55 }, '-=.3')
-        .from('.home-title__line > span', { yPercent: 135, rotate: 1.5, opacity: 0, duration: 1.05, stagger: .1, ease: 'expo.out' }, '-=.35')
-        .from('.home-hero__summary, .home-hero__actions', { y: 18, opacity: 0, duration: .65, stagger: .1 }, '-=.6')
-        .from('.build-object', { x: 45, rotate: 8, scale: .86, opacity: 0, duration: 1.1, ease: 'expo.out' }, '-=1')
-        .from('.build-card__content > *, .build-object__label', { y: 12, opacity: 0, duration: .48, stagger: .045 }, '-=.65')
-        .from('.home-hero__footer', { opacity: 0, duration: .5 }, '-=.3')
+        .from('.home-title__glyph', {
+          yPercent: 118,
+          opacity: 0,
+          rotate: 1.5,
+          duration: .78,
+          stagger: .035,
+          ease: 'expo.out',
+        }, '-=.08')
+        .from('.home-hero__eyebrow, .home-hero__summary, .home-hero__actions', { y: 10, opacity: 0, duration: .4, stagger: .08 }, '-=.46')
 
       gsap.timeline({ defaults: { force3D: true }, scrollTrigger: { trigger: scope, start: 'top top', end: 'bottom bottom', scrub: .8, invalidateOnRefresh: true } })
         .to('.home-hero__copy', { yPercent: -10, opacity: .18, ease: 'none' }, 0)
@@ -42,23 +45,6 @@ export function Hero() {
         .to('.chapter-transition__number', { rotate: 0, scale: 1, ease: 'none' }, .68)
     }
 
-    if (finePointer && !reduceMotion) {
-      const object = scope.querySelector<HTMLElement>('.build-object')
-      if (!object) return
-      const rotateX = gsap.quickTo(object, 'rotationX', { duration: .7, ease: 'power3.out' })
-      const rotateY = gsap.quickTo(object, 'rotationY', { duration: .7, ease: 'power3.out' })
-      const move = (event: PointerEvent) => {
-        rotateX((event.clientY / window.innerHeight - .5) * -7)
-        rotateY((event.clientX / window.innerWidth - .72) * 8)
-      }
-      const leave = () => { rotateX(0); rotateY(0) }
-      scope.addEventListener('pointermove', move, { passive: true })
-      scope.addEventListener('pointerleave', leave)
-      return () => {
-        scope.removeEventListener('pointermove', move)
-        scope.removeEventListener('pointerleave', leave)
-      }
-    }
   }, { scope: root })
 
   return (
@@ -99,11 +85,11 @@ export function Hero() {
         <div className="home-hero__body">
           <div className="home-hero__copy">
             <p className="home-hero__eyebrow">
-              <TextType text="FULL-STACK DEVELOPER · AI-POWERED PRODUCTS — INDIA" initialDelay={2050} />
+              FULL-STACK DEVELOPER · AI-POWERED PRODUCTS — INDIA
             </p>
-            <h1 className="home-title" id="hero-title">
-              <span className="home-title__line"><span>{firstName}</span></span>
-              <span className="home-title__line home-title__line--built"><span>{lastName}</span></span>
+            <h1 className="home-title" id="hero-title" aria-label={portfolio.personal.name}>
+              <span className="home-title__line" aria-hidden="true"><span className="home-title__word">{renderName(firstName)}</span></span>
+              <span className="home-title__line home-title__line--built" aria-hidden="true"><span className="home-title__word">{renderName(lastName)}</span></span>
             </h1>
             <p className="home-hero__summary">I’m a developer who takes products from first idea to final deployment. I build polished interfaces, dependable systems, and useful AI features that solve real problems.</p>
             <div className="home-hero__actions" id="hero-actions">

@@ -1,6 +1,4 @@
 import { useRef } from 'react'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
 import { developerStats, portfolio } from '../data/portfolio'
 import { useSectionReveal } from '../hooks/useSectionReveal'
 import { RevealHeading } from './RevealHeading'
@@ -8,24 +6,7 @@ import profilePortrait from '../assets/12689C94-E07E-4014-9357-C231418BA358.png'
 
 export function ProfileSection() {
   const root = useRef<HTMLElement>(null)
-  const card = useRef<HTMLDivElement>(null)
-  const rotateX = useRef<(value: number) => void>(() => undefined)
-  const rotateY = useRef<(value: number) => void>(() => undefined)
   useSectionReveal(root)
-  useGSAP(() => {
-    if (!card.current) return
-    gsap.set(card.current, { transformPerspective: 900, force3D: true })
-    rotateX.current = gsap.quickTo(card.current, 'rotationX', { duration: .6, ease: 'power3.out' })
-    rotateY.current = gsap.quickTo(card.current, 'rotationY', { duration: .6, ease: 'power3.out' })
-  }, { scope: root })
-
-  const tilt = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const rect = event.currentTarget.getBoundingClientRect()
-    rotateY.current(((event.clientX - rect.left) / rect.width - .5) * 10)
-    rotateX.current(-((event.clientY - rect.top) / rect.height - .5) * 10)
-  }
-  const reset = () => gsap.to(card.current, { rotateX: 0, rotateY: 0, duration: .8, ease: 'elastic.out(1,.5)', overwrite: true, force3D: true })
   const [bioLead, bioRest] = portfolio.personal.bio.split(portfolio.personal.name)
 
   return (
@@ -37,13 +18,13 @@ export function ProfileSection() {
         <small>THE PERSON BEHIND THE PRODUCTS</small>
       </header>
       <div className="profile__frame">
-        <figure className="profile-portrait-wrap" data-section-reveal onPointerMove={tilt} onPointerLeave={reset}>
+        <figure className="profile-portrait-wrap" data-section-reveal>
           <div className="profile-contact-strip" aria-label="Contact details">
             <a href={`mailto:${portfolio.contact.email}`}>E-MAIL: {portfolio.contact.email}</a>
             <span aria-hidden="true">//</span>
             <a href={portfolio.contact.phone}>PHONE: {portfolio.contact.phoneLabel}</a>
           </div>
-          <div className="profile-portrait" ref={card}>
+          <div className="profile-portrait">
             <img src={profilePortrait} alt="Portrait of Arya Patel" loading="lazy" decoding="async" />
           </div>
           <figcaption><span>ARYA PATEL</span><span>FULL-STACK · AI PRODUCTS</span></figcaption>
