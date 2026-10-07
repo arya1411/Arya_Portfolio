@@ -1,130 +1,86 @@
 import { useRef } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { portfolio } from '../data/portfolio'
+import portrait from '../assets/transparent.png'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger)
+gsap.registerPlugin(useGSAP)
 
 export function Hero() {
   const root = useRef<HTMLElement>(null)
-  const [firstName, ...surname] = portfolio.personal.name.split(' ')
-  const lastName = surname.join(' ')
-  const renderName = (name: string) => name.split('').map((letter, index) => (
-    <span className="home-title__glyph" aria-hidden="true" key={`${letter}-${index}`}>{letter}</span>
-  ))
 
   useGSAP(() => {
-    const scope = root.current
-    if (!scope) return
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    if (!reduceMotion) {
-      gsap.timeline({ defaults: { ease: 'power3.out', force3D: true } })
-        .to('.intro__bar-fill', { scaleX: 1, duration: .72, ease: 'power2.inOut' })
-        .to('.intro__count', { textContent: 100, duration: .72, snap: { textContent: 1 } }, '<')
-        .to('.intro__panel--top', { yPercent: -100, duration: .78, ease: 'power4.inOut' }, '+=.08')
-        .to('.intro__panel--bottom', { yPercent: 100, duration: .78, ease: 'power4.inOut' }, '<')
-        .set('.intro', { display: 'none' })
-        .from('.home-title__glyph', {
-          yPercent: 118,
-          opacity: 0,
-          rotate: 1.5,
-          duration: .78,
-          stagger: .035,
-          ease: 'expo.out',
-        }, '-=.08')
-        .from('.home-hero__eyebrow, .home-hero__summary, .home-hero__actions', { y: 10, opacity: 0, duration: .4, stagger: .08 }, '-=.46')
-
-      gsap.timeline({ defaults: { force3D: true }, scrollTrigger: { trigger: scope, start: 'top top', end: 'bottom bottom', scrub: .8, invalidateOnRefresh: true } })
-        .to('.home-hero__copy', { yPercent: -10, opacity: .18, ease: 'none' }, 0)
-        .to('.build-object', { yPercent: 16, rotate: -7, scale: 1.07, ease: 'none' }, 0)
-        .to('.home-hero__reveal', { clipPath: 'inset(0% 0 0 0)', ease: 'none' }, .46)
-        .fromTo('.chapter-transition__content', { yPercent: 18, opacity: 0 }, { yPercent: 0, opacity: 1, ease: 'none' }, .64)
-        .fromTo('.chapter-transition__line i', { scaleX: 0 }, { scaleX: 1, ease: 'none' }, .68)
-        .to('.chapter-transition__number', { rotate: 0, scale: 1, ease: 'none' }, .68)
-    }
-
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .from('.portrait-frame', { scale: .975, opacity: 0, duration: .9 })
+      .from('.portrait-nav > *', { y: -16, opacity: 0, duration: .55, stagger: .06 }, '-=.45')
+      .from('.portrait-name--ghost', { opacity: 0, letterSpacing: '-.12em', duration: .9 }, '-=.35')
+      .from('.portrait-person', { yPercent: 9, opacity: 0, duration: 1, ease: 'expo.out' }, '-=.65')
+      .from('.portrait-copy, .portrait-project, .portrait-contact, .portrait-year', { y: 18, opacity: 0, duration: .6, stagger: .08 }, '-=.5')
+      .from('.portrait-name--front', { yPercent: 110, duration: .85, ease: 'expo.out' }, '-=.5')
   }, { scope: root })
 
   return (
-    <section ref={root} className="home-hero home-hero--built" aria-labelledby="hero-title">
-      <a className="skip-link" href="#hero-actions">Skip to actions</a>
-      <div className="intro" aria-hidden="true">
-        <div className="intro__panel intro__panel--top"><span>INITIALISING / PORTFOLIO.SYS</span></div>
-        <div className="intro__panel intro__panel--bottom">
-          <span className="intro__count">0</span><span className="intro__percent">%</span>
-          <span className="intro__bar"><span className="intro__bar-fill" /></span>
-        </div>
-      </div>
-      <div className="home-hero__stage" id="top">
-        <div className="home-hero__grain" aria-hidden="true" />
-        <div className="home-hero__reveal chapter-transition" aria-hidden="true">
-          <div className="chapter-transition__content">
-            <div className="chapter-transition__top"><span>NEXT CHAPTER</span><span>02 / PROFILE</span></div>
-            <div className="chapter-transition__title"><span>BEYOND</span><strong>THE BUILD.</strong></div>
-            <div className="chapter-transition__line"><span>IDEA</span><i /><span>PRODUCT</span><i /><span>IMPACT</span></div>
-            <div className="chapter-transition__number">02</div>
-            <p>THE PERSON, PROCESS, AND PRINCIPLES<br />BEHIND THE PRODUCTS.</p>
-          </div>
+    <section className="portrait-hero" id="top" ref={root} aria-labelledby="portrait-title">
+      <div className="portrait-ambient" aria-hidden="true"><i /><i /><i /></div>
+
+      <div className="portrait-frame">
+        <div className="portrait-grid" aria-hidden="true" />
+        <div className="portrait-crosses" aria-hidden="true">
+          {Array.from({ length: 8 }, (_, index) => <i key={index} />)}
         </div>
 
-        <nav className="home-nav" aria-label="Main navigation">
-          <a className="home-nav__brand" href="#top" aria-label="Arya Patel — back to top">
-            <svg className="home-nav__mark" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M8 49 23 15l15 34M14 36h18" />
-              <path d="M38 49V15h10c11 0 11 18 0 18H38" />
-            </svg>
-            <span className="home-nav__name">Arya Patel</span>
-            <span className="home-nav__year">©26</span>
-          </a>
-          <div className="home-nav__links"><a href="#profile">About</a><a href="#projects">Work</a><a href="#certifications">Certificates</a></div>
-          <a className="home-nav__availability" href={portfolio.contact.inquiryEmail}><i /> Available for work</a>
+        <nav className="portrait-nav" aria-label="Main navigation">
+          <a className="portrait-brand" href="#top" aria-label="Arya Patel — home">Arya<sup>®</sup></a>
+          <div className="portrait-nav__links">
+            <a href="#top" className="portrait-nav__active">Home</a>
+            <a href="#profile">About</a>
+            <a href="#projects">Work <small>(05)</small></a>
+            <a href="#technologies">Skills <small>(13)</small></a>
+            <a href="#contact">Contact</a>
+          </div>
+          <button className="portrait-menu" type="button" aria-label="Open navigation"><i /><i /></button>
         </nav>
 
-        <div className="home-hero__body">
-          <div className="home-hero__copy">
-            <p className="home-hero__eyebrow">
-              FULL-STACK DEVELOPER · AI-POWERED PRODUCTS — INDIA
-            </p>
-            <h1 className="home-title" id="hero-title" aria-label={portfolio.personal.name}>
-              <span className="home-title__line" aria-hidden="true"><span className="home-title__word">{renderName(firstName)}</span></span>
-              <span className="home-title__line home-title__line--built" aria-hidden="true"><span className="home-title__word">{renderName(lastName)}</span></span>
-            </h1>
-            <p className="home-hero__summary">I’m a developer who takes products from first idea to final deployment. I build polished interfaces, dependable systems, and useful AI features that solve real problems.</p>
-            <div className="home-hero__actions" id="hero-actions">
-              <a className="home-cta home-cta--primary" href="#projects"><span>Explore my work</span><i>↘</i></a>
-              <a className="home-cta" href={portfolio.contact.inquiryEmail}><span>Let’s talk</span><i>↗</i></a>
-            </div>
-          </div>
+        <div className="portrait-name portrait-name--ghost" aria-hidden="true">ARYA PATEL</div>
 
-          <div className="home-hero__prop" aria-hidden="true">
-            <div className="build-object">
-              <div className="build-object__layer build-object__layer--back" />
-              <div className="build-object__layer build-object__layer--mid" />
-              <div className="build-card">
-                <div className="build-card__content">
-                  <header><span>PRODUCT BLUEPRINT</span><span>AP / 001</span></header>
-                  <div className="build-card__statement"><small>FROM</small><strong>IDEA</strong><i>→</i><small>TO</small><strong>IMPACT</strong></div>
-                  <div className="build-card__tracks">
-                    <span><b>01</b> INTERFACE <i /></span>
-                    <span><b>02</b> SYSTEMS <i /></span>
-                    <span><b>03</b> INTELLIGENCE <i /></span>
-                  </div>
-                  <footer><span>DESIGN / ENGINEER / SHIP</span><b>READY.</b></footer>
-                </div>
+        <p className="portrait-copy">
+          I BUILD USER-CENTERED DIGITAL<br />PRODUCTS THAT ARE SIMPLE<br />RELIABLE AND IMPACTFUL
+        </p>
+
+        <figure className="portrait-person">
+          <img src={portrait} alt="Arya Patel" fetchPriority="high" />
+        </figure>
+
+        <a className="portrait-project" href="#projects" aria-label="View featured project Code Sentinel">
+          <div className="portrait-project__visual">
+            <span className="portrait-project__watermark">CS</span>
+            <div className="portrait-project__screen">
+              <header><i /><i /><i /><span>pull-request / 042</span></header>
+              <div className="portrait-project__code">
+                <span><b>01</b><i /></span>
+                <span><b>02</b><i /></span>
+                <span className="is-alert"><b>03</b><i /><em>!</em></span>
+                <span><b>04</b><i /></span>
               </div>
-              <span className="build-object__label build-object__label--top">FULL STACK<br />PRODUCT BUILDER</span>
-              <span className="build-object__label build-object__label--bottom">REACT · NODE<br />PYTHON · AI</span>
+              <footer><span>AI REVIEW</span><strong>3 insights</strong></footer>
             </div>
+            <div className="portrait-project__signal" aria-hidden="true"><span /><span /><span /></div>
           </div>
-        </div>
+          <footer><span>✳ CODE SENTINEL</span><span>/ AI Product</span></footer>
+        </a>
 
-        <footer className="home-hero__footer">
-          <div><a href={portfolio.contact.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={portfolio.contact.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
-          <a className="home-scroll" href="#profile"><i /><span>Scroll to explore</span></a>
-          <span>05 PRODUCTS · 02 AI BUILDS · 03 PUBLIC</span>
-        </footer>
+        <span className="portrait-year">©2026</span>
+
+        <h1 className="portrait-name portrait-name--front" id="portrait-title">ARYA</h1>
+
+        <a className="portrait-contact" href={portfolio.contact.inquiryEmail}>
+          <span className="portrait-contact__thumb"><img src={portrait} alt="" /></span>
+          <span className="portrait-contact__copy"><small>Let's Talk</small><strong>Arya Patel</strong><em>Full-Stack Developer</em></span>
+          <span className="portrait-contact__star">✳</span>
+          <span className="portrait-contact__arrow">↗</span>
+        </a>
       </div>
     </section>
   )
