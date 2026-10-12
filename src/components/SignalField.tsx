@@ -96,13 +96,13 @@ export function SignalField() {
 
     const observer = new ResizeObserver(resize)
     observer.observe(canvas)
-    canvas.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
     resize()
     if (!reduced) frame = requestAnimationFrame(draw)
 
     return () => {
       observer.disconnect()
-      canvas.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointermove', onPointerMove)
       cancelAnimationFrame(frame)
     }
   }, [])

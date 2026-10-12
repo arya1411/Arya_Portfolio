@@ -7,7 +7,7 @@ const coreTools = [
   { mark: 'RE', label: 'React' },
   { mark: 'ND', label: 'Node.js' },
   { mark: 'PY', label: 'Python' },
-  { mark: 'AI', label: 'AI Apps' },
+  { mark: 'API', label: 'REST APIs' },
   { mark: 'DB', label: 'MongoDB' },
 ]
 
@@ -24,7 +24,7 @@ export function ProfileSection() {
 
       <header className="about-board__header" data-section-reveal>
         <h2 id="profile-title">About <em>Me</em></h2>
-        <p>Full-Stack Developer <i /> AI Product Builder <i /> B.Tech Student</p>
+        <p>Full-Stack Developer <i /> React + Node.js <i /> B.Tech Student</p>
       </header>
 
       <div className="about-grid">
@@ -49,9 +49,8 @@ export function ProfileSection() {
         <article className="about-tile about-tile--statement" data-section-reveal>
           <span className="about-tile__index">03 / WHAT I DO</span>
           <span className="about-statement__ghost" aria-hidden="true">BUILD</span>
-          <div className="about-statement__orbit" aria-hidden="true"><span>AP</span></div>
-          <h3>FULL-STACK<br /><em>PRODUCT</em> SYSTEMS</h3>
-          <p>Interface · Architecture · Intelligence</p>
+          <h3>REACT VIEWS<br /><em>NODE</em> BACKENDS</h3>
+          <p>TypeScript · REST APIs · MongoDB</p>
         </article>
 
         <article className="about-tile about-tile--tools" data-section-reveal>
@@ -74,7 +73,7 @@ export function ProfileSection() {
           <span className="about-focus__monogram" aria-hidden="true">A</span>
           <div>
             <span className="about-tile__index">CURRENT FOCUS</span>
-            <h3>Useful AI.<br />Reliable products.</h3>
+            <h3>Building<br />Code Sentinel.</h3>
           </div>
           <a href={portfolio.personal.resumeUrl} target="_blank" rel="noreferrer">Résumé <span>↗</span></a>
         </article>

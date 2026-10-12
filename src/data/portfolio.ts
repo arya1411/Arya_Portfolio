@@ -7,7 +7,7 @@ export const portfolio = {
     headline: 'Developer by craft. Product thinker by instinct.',
     tagline: 'From scratch to deployment.',
     bio: 'I’m Arya Patel, a Full-Stack Developer currently pursuing B.Tech at Manipal Institute of Technology. I enjoy turning early ideas into reliable products—designing the interface, engineering the system, and adding AI where it creates genuine value.',
-    footerBio: 'Full-Stack Developer building reliable, AI-powered digital products.',
+    footerBio: 'Full-Stack Developer working with React, Node.js, Python, and MongoDB.',
     status: ['Open To Work', 'Remote + Onsite', 'Open To Internships'],
     resumeUrl: 'https://drive.google.com/file/d/1IIZuBtjgtY8MvYzBbFQZXEC2MR2EMZBm/view?usp=sharing',
   },

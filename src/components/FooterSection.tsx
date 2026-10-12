@@ -9,11 +9,11 @@ export function FooterSection() {
     <footer className="footer" id="contact" ref={root}>
       <div className="contact-card" data-section-reveal>
         <span className="micro-label">HAVE A PROJECT? / LET’S BUILD</span>
-        <h2 data-type-reveal aria-label="Let’s make something bold together.">
-          <span className="type-line-clip"><span data-type-word>Let’s make something</span></span><br />
-          <i className="type-line-clip"><span data-type-word>bold together.</span></i>
+        <h2 data-type-reveal aria-label="Have a build in mind? Let’s talk.">
+          <span className="type-line-clip"><span data-type-word>Have a build in mind?</span></span><br />
+          <i className="type-line-clip"><span data-type-word>Let’s talk.</span></i>
         </h2>
-        <p>Available for freelance projects, product collaborations, and full-stack work involving practical AI.</p>
+        <p>Available for full-stack roles, internships, and focused project work.</p>
         <a href={portfolio.contact.inquiryEmail}><span>{portfolio.contact.email}</span><strong>Contact me ↗</strong></a>
       </div>
       <div className="footer__grid" data-section-reveal>
