@@ -21,23 +21,14 @@ export const portfolio = {
   },
 }
 
-export const developerStats = [
-  { value: '05', label: 'Selected Products' },
-  { value: '02', label: 'AI-Powered Builds' },
-  { value: '03', label: 'Public Builds' },
-  { value: 'A→Z', label: 'Idea To Deployment' },
-]
-
-export const technologies = ['C++', 'Python', 'JavaScript', 'MongoDB', 'TypeScript', 'Tailwind CSS', 'Vercel', 'GitHub', 'Docker', 'Prisma', 'Vite', 'Svelte', 'React']
-
 export const skillGroups = [
-  { title: 'MERN Stack', detail: 'Full-stack JavaScript architecture for fast product delivery and scalable APIs.', items: ['MongoDB', 'Express', 'React', 'Node.js'] },
-  { title: 'AI And ML', detail: 'Practical machine-learning workflows with model serving and performance tuning.', items: ['TensorFlow ↗', 'Python', 'NumPy', 'Pandas'] },
-  { title: 'Cloud And DevOps', detail: 'Production-ready deployment pipelines with containers and observability.', items: ['Docker ↗', 'Vercel', 'GitHub Actions', 'Linux'] },
-  { title: 'Data And APIs', detail: 'Reliable data modeling and API design for real-world web products.', items: ['PostgreSQL ↗', 'MongoDB', 'REST API', 'Prisma ↗'] },
-  { title: 'Frontend Systems', detail: 'Responsive, accessible interfaces with component-driven architecture.', items: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'] },
-  { title: 'AI Product Layer', detail: 'Integrating retrieval and prompt orchestration into useful product features.', items: ['LLM Apps', 'RAG ↗', 'Prompt Design', 'Evaluation'] },
+  { title: 'Frontend', detail: 'Building interfaces and connecting them to application data.', items: ['React', 'TypeScript', 'JavaScript', 'Tailwind CSS'] },
+  { title: 'Backend & Data', detail: 'Writing APIs and organising the data behind web applications.', items: ['Node.js', 'Express', 'MongoDB', 'REST APIs'] },
+  { title: 'Python & AI', detail: 'Working with data, machine-learning models, and AI APIs.', items: ['Python', 'NumPy', 'Pandas', 'AI APIs'] },
+  { title: 'Development & Deployment', detail: 'Managing source code, building projects, and deploying them to the web.', items: ['GitHub', 'Vite', 'Vercel', 'Linux'] },
 ]
+
+export const learningTools = ['TensorFlow', 'Docker', 'PostgreSQL', 'Prisma', 'RAG']
 
 export const projects = [
   {
@@ -80,6 +71,10 @@ export const projects = [
     outcome: 'A predictive tool that offers early insights into mental health patterns, enabling proactive care and better self-awareness.',
     highlights: ['Predictive ML models', 'Behavioral pattern analysis', 'Health data insights'],
   },
+]
+
+// Retained for a future release; not included in the public project selection.
+export const upcomingProjects = [
   {
     title: 'Universal Downloader', category: 'Online Tool', status: 'Coming Soon', featured: false,
     description: 'A Flask-based utility designed to download content from multiple social platforms.',

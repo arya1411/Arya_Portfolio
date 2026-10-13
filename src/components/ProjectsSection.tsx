@@ -50,9 +50,9 @@ export function ProjectsSection() {
   return (
     <>
       <section className="projects section-shell" id="projects" ref={root} aria-labelledby="projects-title">
-        <SectionHeader label="Selected Work" title="Products, not just projects." index="04" id="projects-title" />
+        <SectionHeader label="Selected work" title="A few things I’ve built." index="04" id="projects-title" />
         <div className="projects-intro" data-section-reveal>
-          <span>05 PROJECTS / SELECTED ARCHIVE</span>
+          <span>{String(projects.length).padStart(2, '0')} PROJECTS / SELECTED WORK</span>
           <p>Open a project to explore the problem, product thinking, and build behind it.</p>
         </div>
         <div className="projects-grid">
